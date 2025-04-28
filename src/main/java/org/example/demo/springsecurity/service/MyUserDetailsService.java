@@ -1,12 +1,13 @@
 package org.example.demo.springsecurity.service;
 
 import org.example.demo.springsecurity.model.User;
-import org.example.demo.springsecurity.model.UserPrincipal;
 import org.example.demo.springsecurity.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {
@@ -20,12 +21,12 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findUserByUsername(username);
+        Optional<User> user = userRepository.findUserByUsername(username);
 
-        if (user == null) {
+        if (user.isEmpty()) {
             System.out.println("User not found");
-            throw new UsernameNotFoundException(username);
+            throw new UsernameNotFoundException("User not found with username: " + username);
         }
-        return new UserPrincipal(user);
+        return user.get();
     }
 }

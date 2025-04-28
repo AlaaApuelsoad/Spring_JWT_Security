@@ -16,6 +16,22 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+
+/**
+ * A JWT (JSON Web Token) filter component that extends {@link OncePerRequestFilter} to process
+ * authentication tokens in HTTP requests. This filter intercepts incoming requests to validate
+ * and process JWT tokens for authentication purposes.
+ *
+ * <p>The filter checks for the presence of a JWT token in the Authorization header,
+ * validates it, and sets up the security context if the token is valid.</p>
+ *
+ * @author Your Name
+ * @see org.springframework.security.web.authentication.OncePerRequestFilter
+ * @see org.example.demo.springsecurity.service.MyUserDetailsService
+ * @see JwtService
+ */
+
+
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
